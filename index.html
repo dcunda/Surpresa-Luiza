@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Você, Meu Amor!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #fff0f5; /* Rosa bem clarinho */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #8a2be2; /* Roxo vibrante */
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .input-area {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-area label {
+            font-size: 1.2em;
+            color: #6a5acd;
+            margin-bottom: 10px;
+        }
+
+        .input-area input[type="number"] {
+            padding: 10px 15px;
+            font-size: 1.2em;
+            border: 2px solid #ffb6c1;
+            border-radius: 8px;
+            text-align: center;
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .surprise-button {
+            background-color: #ff69b4; /* Rosa choque */
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .surprise-button:hover {
+            background-color: #e65a9e;
+            transform: translateY(-3px);
+        }
+
+        .surprise-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #mensagemErro {
+            color: #e74c3c; /* Vermelho para erro */
+            margin-top: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quero te dizer uma coisa!</h1> 
+    <h1> Mas para ver...</h1>
+    <div class="input-area">
+        <label for="diasFaltam">Quantos dias faltam para a gente namorar?</label>
+        <input type="number" id="diasFaltam" placeholder="Ex: 5">
+        <button class="surprise-button" onclick="verificarDias()">REVELAR SURPRESA!</button>
+        <p id="mensagemErro"></p>
+    </div>
+
+    <script>
+        function verificarDias() {
+            // Defina a data que vocês vão começar a namorar (Ano, Mês-1, Dia)
+            // Exemplo: 2025, Junho (mês 5, porque janeiro é 0), Dia 20
+            const dataAlvo = new Date(2025, 6, 9); // Ajuste AQUI a data do namoro
+
+            const hoje = new Date();
+            // Para calcular a diferença em dias, resetamos as horas para evitar problemas com fuso horário
+            const hojeSemHoras = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+            const dataAlvoSemHoras = new Date(dataAlvo.getFullYear(), dataAlvo.getMonth(), dataAlvo.getDate());
+
+
+            const diferencaTempo = dataAlvoSemHoras.getTime() - hojeSemHoras.getTime();
+            const diasFaltamReal = Math.ceil(diferencaTempo / (1000 * 60 * 60 * 24)); // Arredonda para cima
+
+            const diasDigitados = parseInt(document.getElementById('diasFaltam').value);
+            const mensagemErro = document.getElementById('mensagemErro');
+
+            if (isNaN(diasDigitados)) {
+                mensagemErro.textContent = "Digite um numero!";
+            } else if (diasDigitados === diasFaltamReal) {
+                // Redireciona para a página da surpresa
+                window.location.href = 'surpresa.html';
+            } else {
+                mensagemErro.textContent = "Ops! Não é esse número de dias. Tente novamente!";
+            }
+        }
+    </script>
+</body>
+</html>
