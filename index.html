@@ -23,27 +23,10 @@
             margin-bottom: 30px;
         }
 
-        .input-area {
-            margin-top: 20px;
+        .button-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .input-area label {
-            font-size: 1.2em;
-            color: #6a5acd;
-            margin-bottom: 10px;
-        }
-
-        .input-area input[type="number"] {
-            padding: 10px 15px;
-            font-size: 1.2em;
-            border: 2px solid #ffb6c1;
-            border-radius: 8px;
-            text-align: center;
-            width: 80px;
-            margin-bottom: 15px;
+            gap: 20px; /* Space between buttons */
+            margin-top: 20px;
         }
 
         .surprise-button {
@@ -69,50 +52,32 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        #mensagemErro {
-            color: #e74c3c; /* Vermelho para erro */
-            margin-top: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
+        .no-button {
+            background-color: #cccccc; /* Gray for "No" */
+        }
+
+        .no-button:hover {
+            background-color: #bbbbbb;
         }
     </style>
 </head>
 <body>
-    <h1>Quero te dizer uma coisa!</h1> 
-    <h1> Mas para ver...</h1>
-    <div class="input-area">
-        <label for="diasFaltam">Quantos dias faltam para a gente namorar?</label>
-        <input type="number" id="diasFaltam" placeholder="Ex: 5">
-        <button class="surprise-button" onclick="verificarDias()">REVELAR SURPRESA!</button>
-        <p id="mensagemErro"></p>
+    <h1>Meu amor, chegou o dia!</h1>
+    <h1>Você aceita namorar comigo?</h1>
+    <div class="button-container">
+        <button class="surprise-button" onclick="aceitarPedido()">SIM!</button>
+        <button class="surprise-button no-button" onclick="recusarPedido()">NÃO!</button>
     </div>
 
     <script>
-        function verificarDias() {
-            // Defina a data que vocês vão começar a namorar (Ano, Mês-1, Dia)
-            // Exemplo: 2025, Junho (mês 5, porque janeiro é 0), Dia 20
-            const dataAlvo = new Date(2025, 5, 28); // Ajuste AQUI a data do namoro
+        function aceitarPedido() {
+            // Redireciona para a página da surpresa
+            window.location.href = 'surpresa.html';
+        }
 
-            const hoje = new Date();
-            // Para calcular a diferença em dias, resetamos as horas para evitar problemas com fuso horário
-            const hojeSemHoras = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
-            const dataAlvoSemHoras = new Date(dataAlvo.getFullYear(), dataAlvo.getMonth(), dataAlvo.getDate());
-
-
-            const diferencaTempo = dataAlvoSemHoras.getTime() - hojeSemHoras.getTime();
-            const diasFaltamReal = Math.ceil(diferencaTempo / (1000 * 60 * 60 * 24)); // Arredonda para cima
-
-            const diasDigitados = parseInt(document.getElementById('diasFaltam').value);
-            const mensagemErro = document.getElementById('mensagemErro');
-
-            if (isNaN(diasDigitados)) {
-                mensagemErro.textContent = "Digite um numero!";
-            } else if (diasDigitados === diasFaltamReal) {
-                // Redireciona para a página da surpresa
-                window.location.href = 'surpresa.html';
-            } else {
-                mensagemErro.textContent = "Ops! Não é esse número de dias. Tente novamente!";
-            }
+        function recusarPedido() {
+            // Humorous message for "No"
+            alert("Tem certeza? Essa escolha irá excluir automaticamente todos os arquivos do seu celular para sempre!! 😉");
         }
     </script>
 </body>
